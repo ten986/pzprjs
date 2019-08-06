@@ -1,6 +1,3 @@
-
-/* jshint node: true */
-
 exports.files = [
 	"common/intro",
 	"ui/Boot",
@@ -16,4 +13,4 @@ exports.files = [
 	"ui/KeyPopup",
 	"ui/Timer",
 	"common/outro"
-].map(function(mod){ return "src/js/"+mod+".js";});
+].map(function(mod){ return "src-ui/js/"+mod+".js";});
