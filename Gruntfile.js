@@ -19,8 +19,8 @@ module.exports = function(grunt){
           mode: true
         },
         files : [
-          { expand: true, cwd: 'src/css', src: ['*.css'], dest: 'dist/css' },
-          { expand: true, cwd: 'src',     src: ['*'],     dest: 'dist'     }
+          { expand: true, cwd: 'src-ui/css', src: ['*.css'], dest: 'dist/css' },
+          { expand: true, cwd: 'src-ui',     src: ['*'],     dest: 'dist'     }
         ]
       }
     },
@@ -81,12 +81,12 @@ module.exports = function(grunt){
       },
       ui: {
         options: (PRODUCTION ? {} : {
-          sourceMap : 'dist/js/pzprv3-ui.js.map',
-          sourceMapIn : 'dist/js/pzprv3-ui.concat.js.map',
+          sourceMap : 'dist/js/pzpr-ui.js.map',
+          sourceMapIn : 'dist/js/pzpr-ui.concat.js.map',
           sourceMapIncludeSources : true
         }),
         files: [
-          { src: 'dist/js/pzprv3-ui.concat.js', dest: 'dist/js/pzprv3-ui.js' },
+          { src: 'dist/js/pzpr-ui.concat.js', dest: 'dist/js/pzpr-ui.js' },
           { src: 'src/js/v3index.js',           dest: 'dist/js/v3index.js' }
         ]
       }
