@@ -23,11 +23,11 @@ function importData(){
 		/* 1) 盤面複製・index.htmlからのファイル入力/Database入力か */
 		/* 2) URL(?以降)をチェック */
 		onload_pzl = (importFileData() || importURL());
-		
+
 		/* 指定されたパズルがない場合はさようなら～ */
 		if(!onload_pzl || !onload_pzl.pid){ failOpen();}
 	}
-	
+
 	return true;
 }
 
@@ -41,24 +41,24 @@ function failOpen(){
 
 function startPuzzle(){
 	var pzl = onload_pzl;
-	
+
 	/* IE SVGのtextLengthがうまく指定できていないので回避策を追加 */
 	if((function(ua){ return ua.match(/MSIE/) || (ua.match(/AppleWebKit/) && ua.match(/Edge/));})(navigator.userAgent)){
 		onload_option.graphic = 'canvas';
 	}
-	
+
 	/* パズルオブジェクトの作成 */
 	var element = document.getElementById('divques');
 	var puzzle = ui.puzzle = new pzpr.Puzzle(element, onload_option);
 	pzpr.connectKeyEvents(puzzle);
-	
+
 	/* パズルオブジェクト作成〜open()間に呼ぶ */
 	ui.event.onload_func();
-	
+
 	// 単体初期化処理のルーチンへ
 	puzzle.once('fail-open', failOpen);
 	puzzle.open(pzl);
-	
+
 	return true;
 }
 
@@ -68,22 +68,22 @@ function startPuzzle(){
 function importURL(){
 	/* index.htmlからURLが入力されたかチェック */
 	var search = getStorageData('pzprv3_urldata', 'urldata');
-	
+
 	/* index.htmlからURLが入力されていない場合は現在のURLの?以降をとってくる */
 	search = search || location.search;
 	if(!search){ return null;}
-	
+
 	/* 一旦先頭の?記号を取り除く */
 	if(search.charAt(0)==="?"){ search = search.substr(1);}
-	
+
 	while(search.match(/^(\w+)\=(\w+)\&(.*)/)){
 		onload_option[RegExp.$1] = RegExp.$2;
 		search = RegExp.$3;
 	}
-	
+
 	// エディタモードかplayerモードか、等を判定する
 	if(search==="test"){ search = 'country_test';}
-	
+
 	var startmode = '';
 	if(search.match(/_edit/)){ startmode = 'EDITOR';}
 	else if(search.match(/_play/)){ startmode = 'PLAYER';}

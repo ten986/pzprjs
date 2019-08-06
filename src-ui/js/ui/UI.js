@@ -16,10 +16,10 @@ window.ui = {
 
 	/* このサイトで使用するパズルのオブジェクト */
 	puzzle    : null,
-	
+
 	/* どの種類のパズルのメニューを表示しているか */
 	currentpid : '',
-	
+
 	/* メンバオブジェクト */
 	event     : null,
 	menuconfig: null,
@@ -28,14 +28,14 @@ window.ui = {
 	popupmgr  : null,
 	keypopup  : null,
 	timer     : null,
-	
+
 	enableGetText   : false,	// FileReader APIの旧仕様でファイルが読めるか
 	enableReadText  : false,	// HTML5 FileReader APIでファイルが読めるか
 	reader : null,				// FileReaderオブジェクト
-	
+
 	enableSaveImage : false,	// 画像保存が可能か
 	enableImageType : {},		// 保存可能な画像形式
-	
+
 	enableSaveBlob  : false,	// saveBlobが使用できるか
 
 	callbackComplete : null,
@@ -135,19 +135,19 @@ window.ui = {
 			case 'firefly': case 'hashikake': case 'wblink':
 			case 'ichimaga': case 'ichimagam': case 'ichimagax':
 				padding = 0.30; break;
-			
+
 			case 'kouchoku': case 'gokigen': case 'wagiri': case 'creek':
 				padding = 0.20; break;
-			
+
 			case 'slither': case 'bag': case 'mejilink':
 				padding = 0.15; break;
-			
+
 			case 'kinkonkan': case 'building': case 'easyasabc': case 'box':
 				padding = 0.05; break;
-			
+
 			case 'bosanowa':
 				padding = (ui.menuconfig.get('disptype_bosanowa')!==2?0.50:0.05); break;
-			
+
 			default: padding = 0.50; break;
 		}
 		if(ui.menuconfig.get('fullwidth')){ padding = 0;}
@@ -191,7 +191,7 @@ window.ui = {
 	initImageSaveMethod : function(puzzle){
 		if(!!pzpr.Candle.enable.canvas && !!_doc.createElement('canvas').toDataURL){
 			this.enableImageType.png = true;
-			
+
 			var canvas = _doc.createElement('canvas');
 			canvas.width = canvas.height = 1;
 			if(canvas.toDataURL('image/gif').match('image/gif'))  { this.enableImageType.gif = true;}
@@ -204,7 +204,7 @@ window.ui = {
 		if(!!this.enableImageType.png || !!this.enableImageType.svg){
 			this.enableSaveImage = true;
 		}
-		
+
 		this.enableSaveBlob = (!!window.navigator.saveBlob);
 	}
 };

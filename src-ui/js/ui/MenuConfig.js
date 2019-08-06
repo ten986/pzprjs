@@ -19,22 +19,22 @@ ui.menuconfig = {
 	//---------------------------------------------------------------------------
 	init : function(){
 		this.list = {};
-		
+
 		this.add('autocheck',      ui.puzzle.playeronly);					/* 正解自動判定機能 */
 		this.add('autocheck_once', ui.puzzle.playeronly, {volatile:true});	/* 正解自動判定機能 */
-		
+
 		this.add('keypopup', false);						/* キーポップアップ (数字などのパネル入力) */
 
 		this.add('adjsize', true);							/* 自動横幅調節 */
 		this.add('cellsizeval', (ui.windowWidth()<=960?36:48));	/* セルのサイズ設定用 */
 		this.add('fullwidth', (ui.windowWidth()<600));		/* キャンバスを横幅いっぱいに広げる */
-		
+
 		this.add('toolarea', true);							/* ツールエリアの表示 */
-		
+
 		this.add('inputmode', 'auto', {volatile:true});		/* inputMode */
-		
+
 		this.add('lrinvert', false, {volatile:true});		/* マウスの左右ボタンを反転する設定 */
-		
+
 		this.add('language', pzpr.lang, {option:['en','ja']});	/* 言語設定 */
 
 		/* puzzle.configを一括で扱うため登録 */
@@ -64,7 +64,7 @@ ui.menuconfig = {
 			case 'bosanowa':  idname = 'disptype_bosanowa';  break;
 		}
 		if(!!idname){ this.set(idname, ui.puzzle.getConfig(idname));}
-		
+
 		this.set('lrinvert', ui.puzzle.mouse.inversion);
 		this.set('autocmp',  ui.puzzle.getConfig('autocmp'));
 		this.set('autoerr',  ui.puzzle.getConfig('autoerr'));
@@ -87,12 +87,12 @@ ui.menuconfig = {
 		if(!this.list[idname]){ return;}
 		if(idname==='mode'){ ui.puzzle.setMode(newval); newval = (!ui.puzzle.playmode?'edit':'play');}
 		else if(idname==='inputmode'){ ui.puzzle.mouse.setInputMode(newval); newval = ui.puzzle.mouse.inputMode;}
-		
+
 		newval = this.setproper(names, newval);
-		
+
 		if(idname==='language'){ pzpr.lang = newval;}
 		else if(this.list[idname].puzzle){ ui.puzzle.setConfig(argname, newval);}
-		
+
 		this.configevent(idname,newval);
 	},
 	reset : Config.reset,
@@ -160,19 +160,19 @@ ui.menuconfig = {
 		case 'keypopup':
 			ui.keypopup.display();
 			break;
-			
+
 		case 'adjsize': case 'cellsizeval': case 'fullwidth':
 			ui.adjustcellsize();
 			break;
-			
+
 		case 'autocheck':
 			this.list.autocheck_once.val = newval;
 			break;
-		
+
 		case 'language':
 			ui.displayAll();
 			break;
-		
+
 		case 'lrinvert':
 			ui.puzzle.mouse.setInversion(newval);
 			break;

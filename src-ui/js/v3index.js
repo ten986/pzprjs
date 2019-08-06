@@ -118,7 +118,7 @@ v3index.extend({
 	setlang : function(lang){
 		self.doclang = lang;
 		self.translate();
-		
+
 		var setting = JSON.parse(localStorage['pzprv3_config:ui']||'{}');
 		setting.language = lang;
 		localStorage['pzprv3_config:ui'] = JSON.stringify(setting);

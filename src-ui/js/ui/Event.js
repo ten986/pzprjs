@@ -67,11 +67,11 @@ ui.event =
 	//---------------------------------------------------------------------------
 	onload_func : function(){
 		ui.initFileReadMethod();
-		
+
 		ui.menuconfig.restore();
-		
+
 		ui.listener.setListeners(ui.puzzle);
-		
+
 		if(pzpr.env.OS.Android){
 			ui.misc.modifyCSS({'body, .btn':{fontFamily:'Verdana, Arial, sans-serif'}});
 		}
@@ -95,7 +95,7 @@ ui.event =
 	},
 	onbeforeunload_func : function(e){
 		if(ui.puzzle.playeronly || !ui.puzzle.ismodified()){ return;}
-		
+
 		var msg = ui.selectStr("盤面が更新されています", "The board is edited.");
 		e.returnValue = msg;
 		return msg;

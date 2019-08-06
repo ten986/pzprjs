@@ -108,7 +108,7 @@ var KeyUndo = 1,
 ui.undotimer = {
 	/* メンバ変数 */
 	TID    : null,	/* タイマーID */
-	
+
 	/* bit1:button bit0:key */
 	inUNDO : 0,	/* Undo実行中 */
 	inREDO : 0,	/* Redo実行中 */
@@ -178,7 +178,7 @@ ui.undotimer = {
 	stop : function(){
 		this.inUNDO = 0;
 		this.inREDO = 0;
-		
+
 		clearInterval(this.TID);
 		this.TID = null;
 	},

@@ -13,13 +13,13 @@ ui.listener =
 	setListeners : function(puzzle){
 		puzzle.once('ready',  this.onFirstReady);
 		puzzle.on('ready',    this.onReady);
-		
+
 		puzzle.on('key',      this.onKeyInput);
 		puzzle.on('mouse',    this.onMouseInput);
 		puzzle.on('history',  this.onHistoryChange);
 		puzzle.on('trial',    this.onTrialModeChange);
 		puzzle.on('mode',     this.onModeChange);
-		
+
 		puzzle.on('adjust',     this.onAdjust);
 		puzzle.on('resize',     this.onResize);
 	},
@@ -36,28 +36,28 @@ ui.listener =
 		if(ui.currentpid !== puzzle.pid){
 			/* 以前設定済みのイベントを削除する */
 			ui.event.removeAllEvents();
-			
+
 			/* menuareaより先に キーポップアップを作成する必要がある */
 			ui.keypopup.create();
-			
+
 			/* メニュー用の設定を消去・再設定する */
 			ui.menuarea.reset();
 			ui.toolarea.reset();
 			ui.popupmgr.reset();
 			ui.notify.reset();
 			ui.misc.displayDesign();
-			
+
 			/* Windowへのイベント設定 */
 			ui.event.setWindowEvents();
 		}
-		
+
 		ui.menuconfig.sync();
 		ui.menuconfig.set('autocheck_once', ui.menuconfig.get('autocheck'));
 		ui.currentpid = puzzle.pid;
-		
+
 		ui.adjustcellsize();
 		ui.keypopup.display();
-		
+
 		ui.timer.reset();					/* タイマーリセット(最後) */
 	},
 
@@ -83,11 +83,11 @@ ui.listener =
 			if(c==='ctrl+z' || c==='meta+z'){ ut.stopKeyUndo(); result = false;}
 			if(c==='ctrl+y' || c==='meta+y'){ ut.stopKeyRedo(); result = false;}
 		}
-		
+
 		if(!kc.isCTRL && !kc.isMETA){ ut.reset();}
 		else if(!kc.isZ){ ut.stopKeyUndo();}
 		else if(!kc.isY){ ut.stopKeyRedo();}
-		
+
 		kc.cancelEvent = !result;
 	},
 	onMouseInput : function(puzzle){
@@ -116,7 +116,7 @@ ui.listener =
 				result = false;
 			}
 		}
-		
+
 		mv.cancelEvent = !result;
 	},
 
@@ -139,7 +139,7 @@ ui.listener =
 		ui.menuconfig.list.mode.val = (ui.puzzle.playmode ? 'play' : 'edit');
 		ui.setdisplay('mode');
 		ui.menuconfig.set('inputmode', ui.puzzle.mouse.inputMode);
-		
+
 		ui.setdisplay('keypopup');
 		ui.setdisplay('bgcolor');
 		ui.setdisplay('passallcell');
@@ -164,7 +164,7 @@ ui.listener =
 		}
 		puzzle.canvas.parentNode.style.padding = val+'px';
 		puzzle.canvas.parentNode.style.paddingTop = valTop+'px';
-		
+
 		ui.keypopup.resizepanel();
 	}
 };

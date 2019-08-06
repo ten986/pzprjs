@@ -19,7 +19,7 @@ ui.toolarea = {
 		}
 		ui.misc.displayByPid(getEL("checkpanel"));
 		ui.misc.displayByPid(getEL("btnarea"));
-		
+
 		this.display();
 	},
 
@@ -43,17 +43,17 @@ ui.toolarea = {
 					var item = toolarea.items[idname];
 					if(!item.children){ item.children=[];}
 					item.children.push(el);
-					
+
 					addbtnevent(el, "mousedown", "toolclick");
 				}
 				else if(el.nodeName==="INPUT" && el.type==="checkbox"){
 					var parent = el.parentNode, idname = ui.customAttr(parent,"config");
 					if(!idname){ return;}
 					toolarea.items[idname].checkbox=el;
-					
+
 					addbtnevent(el, "click", "toolclick");
 				}
-				
+
 				/* ボタン領域 */
 				var role = ui.customAttr(el,"buttonExec");
 				if(!!role){
@@ -77,7 +77,7 @@ ui.toolarea = {
 			}
 		});
 	},
-	
+
 	//---------------------------------------------------------------------------
 	// toolarea.display()    全てのラベルに対して文字列を設定する
 	// toolarea.setdisplay() 管理パネルに表示する文字列を個別に設定する
@@ -91,14 +91,14 @@ ui.toolarea = {
 		/* 経過時間の表示/非表示設定 */
 		getEL('separator2').style.display = (ui.puzzle.playeronly ? "" : "none");
 		getEL('timerpanel').style.display = (ui.puzzle.playeronly ? "block" : "none");
-		
+
 		for(var idname in this.items){ this.setdisplay(idname);}
-		
+
 		/* ボタン領域 */
 		/* --------- */
 		getEL('btnarea').style.display = "";
 		pzpr.util.unselectable(getEL('btnarea'));
-		
+
 		this.setdisplay("operation");
 		getEL('btnclear2').style.display  = (!ui.puzzle.board.disable_subclear ? "" : "none");
 		getEL('btncircle').style.display  = (ui.puzzle.pid==='pipelinkr' ? "" : "none");
@@ -107,7 +107,7 @@ ui.toolarea = {
 		getEL('btnirowake').style.display = ((ui.puzzle.painter.irowake && !ui.menuconfig.get("toolarea")) ? "" : "none");
 		getEL('btnirowakeblk').style.display = ((ui.puzzle.painter.irowakeblk && !ui.menuconfig.get("toolarea")) ? "" : "none");
 		this.setdisplay("trialmode");
-		
+
 		/* 共通：キャプションの設定 */
 		/* --------------------- */
 		for(var i=0;i<this.captions.length;i++){
@@ -126,7 +126,7 @@ ui.toolarea = {
 			getEL('btnclear').style.display     = ((trialstage>0) ? 'none' : '');
 			getEL('btntrial').style.color       = ((trialstage>0) ? 'silver' : '');
 			getEL('btntrialarea').style.display = ((trialstage>0) ? 'block' : 'none');
-			
+
 			getEL('btntrialr').style.display  = ((trialstage<=1) ? '' : 'none');
 			getEL('btntrialr2').style.display = ((trialstage>1)  ? '' : 'none');
 			getEL('btntrialra').style.display = ((trialstage>1)  ? '' : 'none');
@@ -137,7 +137,7 @@ ui.toolarea = {
 		else if(ui.menuconfig.valid(idname)){
 			var toolitem = this.items[idname];
 			toolitem.el.style.display = "";
-			
+
 			/* 子要素の設定を行う */
 			if(!!toolitem.children){
 				var children = toolitem.children;
@@ -147,7 +147,7 @@ ui.toolarea = {
 					child.className = (selected ? "child childsel" : "child");
 					child.style.display = ((validval===null || validval.indexOf(value)>=0) ? '' : 'none');
 				}
-				
+
 				var disabled = null;
 				if(idname==="inputmode"){ disabled = (validval.length===1);}
 				if(disabled!==null){ toolitem.el.className = (!disabled ? "" : "disabled");}
@@ -156,14 +156,14 @@ ui.toolarea = {
 			else if(!!toolitem.checkbox){
 				var check = toolitem.checkbox;
 				if(!!check){ check.checked = ui.menuconfig.get(idname);}
-				
+
 				var disabled = null;
 				if(idname==="keypopup"){ disabled = !ui.keypopup.paneltype[ui.puzzle.editmode?1:3];}
 				if(idname==="bgcolor") { disabled = ui.puzzle.editmode;}
 				if(idname==="passallcell"){ disabled = !ui.puzzle.editmode;}
 				if(disabled!==null){ toolitem.checkbox.disabled = (!disabled ? "" : "true");}
 			}
-			
+
 			if((idname==="disptype_pipelinkr") && !!getEL('btncircle')){
 				getEL('btncircle').innerHTML = ((ui.menuconfig.get(idname)===1)?"○":"■");
 			}

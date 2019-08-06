@@ -88,7 +88,7 @@ ui.keypopup =
 		tilepaint  : [51,0],
 		triplace   : [51,0],
 		kakuro     : [51,10],
-		
+
 		slalom     : [101,0],
 		reflect    : [102,0],
 		pipelink   : [111,0],
@@ -125,15 +125,15 @@ ui.keypopup =
 			getEL('panelbase1').innerHTML = '';
 			getEL('panelbase3').innerHTML = '';
 		}
-		
+
 		this.imgs = [];			// resize用
-		
+
 		var type = this.type[ui.puzzle.pid];
 		if(!type){ type=[0,0];}
-		
+
 		this.paneltype = { 1:(!ui.puzzle.playeronly?type[0]:0), 3:(type[1])};
 		if(!this.paneltype[1] && !this.paneltype[3]){ return;}
-		
+
 		if(!this.element){
 			var rect = pzpr.util.getRect(getEL('divques'));
 			this.element = getEL('keypopup');
@@ -141,12 +141,12 @@ ui.keypopup =
 			this.element.style.top  = (rect.top +48)+'px';
 			pzpr.util.unselectable(this.element);
 		}
-		
+
 		if(this.paneltype[1]!==0){ this.createtable(1);}
 		if(this.paneltype[3]!==0){ this.createtable(3);}
-		
+
 		this.resizepanel();
-		
+
 		var bar = getEL('barkeypopup');
 		ui.event.addEvent(bar, "mousedown", ui.popupmgr, ui.popupmgr.titlebardown);
 		ui.event.addEvent(bar, 'dblclick', ui.menuconfig, function(){ this.set('keypopup',false);});
@@ -154,7 +154,7 @@ ui.keypopup =
 	createtable : function(mode,type){
 		this.basepanel = getEL('panelbase'+mode);
 		this.basepanel.innerHTML = '';
-		
+
 		this.tdcolor = (mode===3 ? ui.puzzle.painter.fontAnscolor : "black");
 
 		this.generate(mode);
@@ -219,10 +219,10 @@ ui.keypopup =
 		if((mode===1)&&(pid==='kakuru'||pid==='tateyoko')){
 			itemlist.push(['q1','■'],['w2','□'],' ',['-','?']);
 		}
-		
+
 		itemlist.push('0','1','2','3','4','5','6','7','8','9');
 		itemlist.push(((mode===1)||(!ui.puzzle.klass.Cell.prototype.numberWithMB)) ? ' ' : null);
-		
+
 		var cap = null;
 		if((mode===3)||(pid==='kakuru'||pid==='tateyoko')){
 		}
@@ -314,7 +314,7 @@ ui.keypopup =
 		if     (pid==='pipelink') { itemlist.push(null);}
 		else if(pid==='pipelinkr'){ itemlist.push(['1','○']);}
 		else if(pid==='loopsp')   { itemlist.push(['-','○']);}
-		
+
 		if(pid==='loopsp'){
 			itemlist.push('1','2','3','4','5','6','7','8','9','0');
 		}
@@ -354,7 +354,7 @@ ui.keypopup =
 			else if(!!item[1].text) { ca = item[0]; disp = item[1].text; color = item[1].color;}
 			else if(item[1].image!==void 0){ ca = item[0]; disp = item[1].image; type = "image";}
 		}
-		
+
 		var _div = null, _child = null;
 		if(type!=='empty'){
 			_div = createEL('div');

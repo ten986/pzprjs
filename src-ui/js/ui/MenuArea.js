@@ -6,13 +6,13 @@ ui.menuarea = {
 	captions : [],				// 言語指定を切り替えた際のキャプションを保持する
 	menuitem : null,			// メニューの設定切り替え用エレメント等を保持する
 	nohover : false,			// :hover擬似クラスを使用しないでhover表示する
-	
+
 	//---------------------------------------------------------------------------
 	// menuarea.reset()  メニュー、サブメニュー、フロートメニューの初期設定を行う
 	//---------------------------------------------------------------------------
 	reset : function(){
 		this.createMenu();
-		
+
 		this.display();
 	},
 
@@ -22,7 +22,7 @@ ui.menuarea = {
 	createMenu : function(){
 		if(this.menuitem===null){
 			this.modifySelector();
-			
+
 			this.menuitem = {};
 			this.walkElement(getEL("menupanel"));
 		}
@@ -59,11 +59,11 @@ ui.menuarea = {
 					var item = menuarea.menuitem[idname];
 					if(!item.children){ item.children=[];}
 					item.children.push(el);
-					
+
 					addmenuevent(el, "mousedown", "childclick");
 					setevent = true;
 				}
-				
+
 				var role = ui.customAttr(el,"menuExec");
 				if(!!role){
 					addmenuevent(el, "mousedown", role);
@@ -85,7 +85,7 @@ ui.menuarea = {
 					addmenuevent(el, "mousedown", "disppopup");
 					setevent = true;
 				}
-				
+
 				if(!setevent){
 					if(!menuarea.nohover || !el.querySelector("menu")){
 						addmenuevent(el, "mousedown", function(e){ e.preventDefault();});
@@ -125,7 +125,7 @@ ui.menuarea = {
 		var sheet = _doc.styleSheets[0];
 		var rules = sheet.cssRules || sheet.rules;
 		if(rules===null){} // Chromeでローカルファイルを開くとおかしくなるので、とりあえず何もしないようにします
-		
+
 		for(var i=0,len=rules.length;i<len;i++){
 			var rule = rules[i];
 			if(!rule.selectorText){ continue;}
@@ -136,7 +136,7 @@ ui.menuarea = {
 		}
 		this.nohover = true;
 	},
-	
+
 	//--------------------------------------------------------------------------------
 	// menuarea.showHovering()  MenuAreaのポップアップを表示する (Android向け)
 	// menuarea.stopHovering()  MenuAreaのポップアップを消去する (Android向け)
@@ -154,29 +154,29 @@ ui.menuarea = {
 			if(el.nodeType===1 && !!el.classList){ el.classList.remove("hovering");}
 		});
 	},
-	
+
 	//---------------------------------------------------------------------------
 	// menuarea.display()    全てのメニューに対して文字列を設定する
 	// menuarea.setdisplay() サブメニューに表示する文字列を個別に設定する
 	//---------------------------------------------------------------------------
 	display : function(){
 		getEL('menupanel').style.display = "";
-		
+
 		getEL("menu_imagesave").className = (ui.enableSaveImage ? "" : "disabled");
 		getEL("menu_subclear").style.display  = (!ui.puzzle.board.disable_subclear ? "" : "none");
-		
+
 		var EDITOR = !ui.puzzle.playeronly;
 		getEL("menu_newboard").style.display  = (EDITOR ? "" : "none");
 		getEL("menu_urloutput").style.display = (EDITOR ? "" : "none");
 		getEL("menu_adjust").style.display    = (EDITOR ? "" : "none");
 		getEL("menu_turnflip").style.display  = (EDITOR ? "" : "none");
 		getEL("menu_sep_edit1").style.display = (EDITOR ? "" : "none");
-		
+
 		for(var idname in this.menuitem){ this.setdisplay(idname);}
 		this.setdisplay("operation");
 		this.setdisplay("trialmode");
 		this.setdisplay("toolarea");
-		
+
 		/* キャプションの設定 */
 		for(var i=0;i<this.captions.length;i++){
 			var obj = this.captions[i];
@@ -197,7 +197,7 @@ ui.menuarea = {
 		else if(ui.menuconfig.valid(idname)){
 			var menuitem = this.menuitem[idname];
 			menuitem.el.style.display = "";
-			
+
 			/* セレクタ部の設定を行う */
 			if(!!menuitem.children){
 				var children = menuitem.children;
@@ -214,7 +214,7 @@ ui.menuarea = {
 				var disabled = null;
 				if(idname==="passallcell"){ disabled = !ui.puzzle.editmode;}
 				if(disabled===true){ cname += " disabled";}
-				
+
 				menuitem.el.className = cname;
 			}
 		}
@@ -231,14 +231,14 @@ ui.menuarea = {
 		var el = e.target;
 		if(el.nodeName==="SPAN"){ el = el.parentNode;}
 		if(el.className.match(/disabled/)){ return;}
-		
+
 		var idname = ui.customAttr(el,"config");
 		ui.menuconfig.set(idname, !ui.menuconfig.get(idname));
 	},
 	childclick : function(e){
 		var el = e.target;
 		if(el.nodeName==="SPAN"){ el = el.parentNode;}
-		
+
 		var parent = el.parentNode.parentNode;
 		ui.menuconfig.set(ui.customAttr(parent,"config"), ui.customAttr(el,"value"));
 	},

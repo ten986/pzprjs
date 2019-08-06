@@ -7,12 +7,12 @@
 ui.popupmgr =
 {
 	popup     : null,	/* 表示中のポップアップメニュー */
-	
+
 	popups    : {},		/* 管理しているポップアップメニューのオブジェクト一覧 */
-	
+
 	movingpop : null,	/* 移動中のポップアップメニュー */
 	offset : {px:0, py:0},	/* 移動中ポップアップメニューのページ左上からの位置 */
-	
+
 	//---------------------------------------------------------------------------
 	// popupmgr.reset()      ポップアップメニューの設定をクリアする
 	// popupmgr.setEvents()  ポップアップメニュー(タイトルバー)のイベントを設定する
@@ -20,11 +20,11 @@ ui.popupmgr =
 	reset : function(){
 		/* イベントを割り当てる */
 		this.setEvents();
-		
+
 		/* Captionを設定する */
 		this.translate();
 	},
-	
+
 	setEvents : function(){
 		ui.event.addEvent(_doc, "mousemove", this, this.titlebarmove);
 		ui.event.addEvent(_doc, "mouseup",   this, this.titlebarup);
@@ -55,7 +55,7 @@ ui.popupmgr =
 		if(target!==null){
 			/* 表示しているウィンドウがある場合は閉じる */
 			if(!target.multipopup && !!this.popup){ this.popup.close();}
-			
+
 			/* ポップアップメニューを表示する */
 			target.show(px, py);
 			return true;
@@ -166,7 +166,7 @@ ui.popupmgr.addpopup('template',
 			this.pid = ui.puzzle.pid;
 			this.reset();
 		}
-		
+
 		this.pop.style.left = px + 'px';
 		this.pop.style.top  = py + 'px';
 		this.pop.style.display = 'inline';
@@ -179,7 +179,7 @@ ui.popupmgr.addpopup('template',
 		if(!this.multipopup){
 			ui.popupmgr.popup = null;
 		}
-		
+
 		ui.puzzle.key.enableKey = true;
 		ui.puzzle.mouse.enableMouse = true;
 	}
@@ -191,7 +191,7 @@ ui.popupmgr.addpopup('template',
 ui.popupmgr.addpopup('newboard',
 {
 	formname : 'newboard',
-	
+
 	reset : function(){
 		ui.misc.displayByPid(this.pop);
 		if(this.pid!=='tawa'){ return;}
@@ -204,7 +204,7 @@ ui.popupmgr.addpopup('newboard',
 	show : function(px,py){
 		ui.popupmgr.popups.template.show.call(this,px,py);
 		ui.puzzle.key.enableKey = false;
-		
+
 		switch(ui.puzzle.pid){
 			case 'sudoku': this.setsize_sudoku(); break;
 			case 'tawa':   this.setsize_tawa();   break;
@@ -258,11 +258,11 @@ ui.popupmgr.addpopup('newboard',
 	setsize_tawa : function(){
 		/* タテヨコのサイズ指定部分 */
 		var bd = ui.puzzle.board, col = bd.cols, row = bd.rows, shape = bd.shape;
-		
+
 		if(shape===3){ col++;}
 		this.form.col.value=''+col;
 		this.form.row.value=''+row;
-		
+
 		/* たわむレンガの形状指定ルーチン */
 		this.setshape(shape);
 	},
@@ -270,13 +270,13 @@ ui.popupmgr.addpopup('newboard',
 		var col = this.form.col.value|0;
 		var row = this.form.row.value|0;
 		if(!col || !row){ return null;}
-		
+
 		var shape = this.getshape();
 		if(!isNaN(shape) && !(col===1 && (shape===0||shape===3))){
 			if(shape===3){ col--;}
 		}
 		else{ return null;}
-		
+
 		return {col:col, row:row, shape:shape};
 	},
 
@@ -321,7 +321,7 @@ ui.popupmgr.addpopup('newboard',
 			case 'tawa':   obj = this.getsize_tawa();   break;
 			default:       obj = this.getsize();        break;
 		}
-		
+
 		this.close();
 		if(!!obj){
 			var url = pid+'/'+obj.col+'/'+obj.row;
@@ -337,7 +337,7 @@ ui.popupmgr.addpopup('newboard',
 ui.popupmgr.addpopup('urlinput',
 {
 	formname : 'urlinput',
-	
+
 	//------------------------------------------------------------------------------
 	// urlinput() URLを入力する
 	//------------------------------------------------------------------------------
@@ -353,7 +353,7 @@ ui.popupmgr.addpopup('urlinput',
 ui.popupmgr.addpopup('urloutput',
 {
 	formname : 'urloutput',
-	
+
 	reset : function(px,py){
 		var form = this.form, pid = ui.puzzle.pid, exists = pzpr.variety(pid).exists;
 		form.ta.value = '';
@@ -361,7 +361,7 @@ ui.popupmgr.addpopup('urloutput',
 		form.kanpen.style.display  = form.kanpen.nextSibling.style.display  = (exists.kanpen ? "" : "none");
 		form.heyaapp.style.display = form.heyaapp.nextSibling.style.display = ((pid==="heyawake") ? "" : "none");
 	},
-	
+
 	show : function(px,py){
 		ui.popupmgr.popups.template.show.call(this,px,py);
 		this.reset(px,py);
@@ -395,11 +395,11 @@ ui.popupmgr.addpopup('urloutput',
 ui.popupmgr.addpopup('fileopen',
 {
 	formname : 'fileform',
-	
+
 	init : function(){
 		ui.popupmgr.popups.template.init.call(this);
 	},
-	
+
 	//------------------------------------------------------------------------------
 	// fileopen()  ファイルを開く
 	//------------------------------------------------------------------------------
@@ -408,7 +408,7 @@ ui.popupmgr.addpopup('fileopen',
 		if(!!ui.reader || ui.enableGetText){
 			var fitem = fileEL.files[0];
 			if(!fitem){ return;}
-			
+
 			if(!!ui.reader){ ui.reader.readAsText(fitem);}
 			else           { ui.puzzle.open(fitem.getAsText(''));}
 		}
@@ -426,7 +426,7 @@ ui.popupmgr.addpopup('filesave',
 	anchor : null,
 	init : function(){
 		ui.popupmgr.popups.template.init.call(this);
-		
+
 		this.anchor = ((!ui.enableSaveBlob && pzpr.env.API.anchor_download) ? getEL("saveanchor") : null);
 	},
 	reset : function(){
@@ -438,15 +438,15 @@ ui.popupmgr.addpopup('filesave',
 	/* オーバーライド */
 	show : function(px,py){
 		ui.popupmgr.popups.template.show.call(this,px,py);
-		
+
 		this.form.filename.value = ui.puzzle.pid + '.txt';
 		this.changefilename();
-		
+
 		ui.puzzle.key.enableKey = false;
 	},
 	close : function(){
 		if(!!this.filesaveurl){ URL.revokeObjectURL(this.filesaveurl);}
-		
+
 		ui.popupmgr.popups.template.close.call(this);
 	},
 	changefilename : function(){
@@ -464,7 +464,7 @@ ui.popupmgr.addpopup('filesave',
 		}
 		this.form.filename.value = filename + ext;
 	},
-	
+
 	//------------------------------------------------------------------------------
 	// filesave()  ファイルを保存する
 	//------------------------------------------------------------------------------
@@ -524,10 +524,10 @@ ui.popupmgr.addpopup('imagesave',
 	showsize : null,
 	init : function(){
 		ui.popupmgr.popups.template.init.call(this);
-		
+
 		this.anchor = ((!ui.enableSaveBlob && pzpr.env.API.anchor_download) ? getEL("saveanchor") : null);
 		this.showsize = getEL("showsize");
-		
+
 		/* ファイル形式選択オプション */
 		var filetype = this.form.filetype, options = filetype.options;
 		for(var i=0;i<options.length;i++){
@@ -535,27 +535,27 @@ ui.popupmgr.addpopup('imagesave',
 			if(!ui.enableImageType[option.value]){ filetype.removeChild(option); i--;}
 		}
 	},
-	
+
 	/* オーバーライド */
 	show : function(px,py){
 		ui.popupmgr.popups.template.show.call(this,px,py);
-		
+
 		ui.puzzle.key.enableKey = false;
 		ui.puzzle.mouse.enableMouse = false;
-		
+
 		this.form.filename.value = pzpr.variety(ui.puzzle.pid).urlid+".png";
 		this.form.cellsize.value = ui.menuconfig.get('cellsizeval');
-		
+
 		this.changefilename();
 		this.estimatesize();
 	},
 	close : function(){
 		if(!!this.saveimageurl){ URL.revokeObjectURL(this.saveimageurl);}
-		
+
 		ui.puzzle.setCanvasSize();
 		ui.popupmgr.popups.template.close.call(this);
 	},
-	
+
 	changefilename : function(){
 		var filename = this.form.filename.value.replace(/\.\w{3,4}$/,'.');
 		this.form.filename.value = filename + this.form.filetype.value;
@@ -566,7 +566,7 @@ ui.popupmgr.addpopup('imagesave',
 		var height = (+cellsize * ui.puzzle.painter.getCanvasRows())|0;
 		this.showsize.replaceChild(_doc.createTextNode(width+" x "+height), this.showsize.firstChild);
 	},
-	
+
 	//------------------------------------------------------------------------------
 	// saveimage()    画像をダウンロードする
 	// submitimage() "画像をダウンロード"の処理ルーチン
@@ -616,7 +616,7 @@ ui.popupmgr.addpopup('imagesave',
 			ui.notify.alert('画像の出力に失敗しました','Fail to Output the Image');
 		}
 	},
-	
+
  	//------------------------------------------------------------------------------
 	// openimage()   "別ウィンドウで開く"の処理ルーチン
 	//------------------------------------------------------------------------------
@@ -626,7 +626,7 @@ ui.popupmgr.addpopup('imagesave',
 		if(this.form.transparent.checked){ option.bgcolor = '';}
 		var type = this.form.filetype.value;
 		var IEkei = navigator.userAgent.match(/(Trident|Edge)\//);
-		
+
 		var dataurl = "";
 		try{
 			if(!IEkei || type!=='svg'){
@@ -640,7 +640,7 @@ ui.popupmgr.addpopup('imagesave',
 			ui.notify.alert('画像の出力に失敗しました','Fail to Output the Image');
 		}
 		if(!dataurl){ /* No Data URL */ return;}
-		
+
 		/* 出力された画像を開くルーチン */
 		function writeContent(blob){
 			var filename = this.form.filename.value;
@@ -678,7 +678,7 @@ ui.popupmgr.addpopup('imagesave',
 ui.popupmgr.addpopup('adjust',
 {
 	formname : 'adjust',
-	
+
 	adjust : function(e){
 		ui.puzzle.board.operate(e.target.name);
 	}
@@ -690,12 +690,12 @@ ui.popupmgr.addpopup('adjust',
 ui.popupmgr.addpopup('turnflip',
 {
 	formname : 'turnflip',
-	
+
 	reset : function(){
 		this.form.turnl.disabled = (ui.puzzle.pid==='tawa');
 		this.form.turnr.disabled = (ui.puzzle.pid==='tawa');
 	},
-	
+
 	adjust : function(e){
 		ui.puzzle.board.operate(e.target.name);
 	}
@@ -707,10 +707,10 @@ ui.popupmgr.addpopup('turnflip',
 ui.popupmgr.addpopup('metadata',
 {
 	formname : 'metadata',
-	
+
 	show : function(px,py){
 		ui.popupmgr.popups.template.show.call(this,px,py);
-		
+
 		var form = this.form;
 		var puzzle = ui.puzzle, bd = puzzle.board, meta = puzzle.metadata;
 		getEL("metadata_variety").innerHTML = pzpr.variety(puzzle.pid)[pzpr.lang] + "&nbsp;" + bd.cols+"×"+bd.rows;
@@ -738,10 +738,10 @@ ui.popupmgr.addpopup('colors',
 {
 	formname : 'colors',
 	colorElement : true,
-	
+
 	init : function(){
 		ui.popupmgr.popups.template.init.call(this);
-		
+
 		ui.misc.walker(this.form, function(el){
 			var target = ui.customAttr(el.parentNode,"colorTarget") || '';
 			if(el.nodeName==="INPUT" && el.getAttribute("type")==="color"){
@@ -797,7 +797,7 @@ ui.popupmgr.addpopup('colors',
 		}
 		return color;
 	},
-	
+
 	//------------------------------------------------------------------------------
 	// setcolor()   色を設定する
 	// clearcolor() 色の設定をクリアする
@@ -817,14 +817,14 @@ ui.popupmgr.addpopup('colors',
 ui.popupmgr.addpopup('dispsize',
 {
 	formname : 'dispsize',
-	
+
 	show : function(px,py){
 		ui.popupmgr.popups.template.show.call(this,px,py);
-		
+
 		this.form.cellsize.value = ui.menuconfig.get('cellsizeval');
 		ui.puzzle.key.enableKey = false;
 	},
-	
+
 	//------------------------------------------------------------------------------
 	// changesize()  Canvasでのマス目の表示サイズを変更する
 	//------------------------------------------------------------------------------
@@ -844,7 +844,7 @@ ui.popupmgr.addpopup('credit',
 
 	init : function(){
 		ui.popupmgr.popups.template.init.call(this);
-		
+
 		getEL('pzprversion').innerHTML = pzpr.version;
 	}
 });

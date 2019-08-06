@@ -7,7 +7,7 @@
 ui.notify =
 {
 	onconfirm : null,
-	
+
 	//---------------------------------------------------------------------------
 	// notify.reset()      Notificationの設定を初期化する
 	//---------------------------------------------------------------------------
@@ -15,7 +15,7 @@ ui.notify =
 		/* イベントを割り当てる */
 		this.walkElement(getEL("notifies"));
 	},
-	
+
 	//---------------------------------------------------------------------------
 	// notify.walkElement()  エレメントを探索して領域の初期設定を行う
 	//---------------------------------------------------------------------------
@@ -28,7 +28,7 @@ ui.notify =
 				if(!!role){
 					pzpr.util.addEvent(el, (!pzpr.env.API.touchevent ? "click" : "mousedown"), notify, notify[role]);
 				}
-				
+
 				/* タイトルバーでボックスを動かす設定 */
 				if(el.className==='titlebar'){
 					pzpr.util.addEvent(el, "mousedown", ui.popupmgr, ui.popupmgr.titlebardown);
@@ -55,7 +55,7 @@ ui.notify =
 		var elbg = getEL("notifybg");
 		elbg.style.display = "block";
 		el.style.display = 'inline-block';
-		
+
 		/* innerHeightがIE8以下にないので、代わりに背景要素の高さ(height=100%), 幅を取得します */
 		var rect = pzpr.util.getRect(el), rectbg = pzpr.util.getRect(elbg);
 		el.style.top  = ((rectbg.height - rect.height) / 2) + "px";
