@@ -2,7 +2,7 @@
 
 var assert = require('assert');
 
-var pzpr = require('../../dist/pzpr.js');
+var pzpr = require('../../dist/js/pzpr.js');
 
 describe('Config test', function(){
 	var puzzle = new pzpr.Puzzle();
