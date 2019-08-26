@@ -1314,14 +1314,14 @@ Graphic:{
 		g.lineWidth = 1;
 		g.strokeStyle = this.gridcolor;
 		for(var i=xa;i<=xb;i+=2){
-			var px = i*bw, py1 = y1*bh, py2 = y2*bh;
+			var px = i*bw, pminy = miny*bh, pmaxy = maxy*bh;
 			g.vid = "bdy_"+i;
-			g.strokeDashedLine(px, py1, px, py2, [dotSize]);
+			g.strokeDashedLine(px, pminy, px, pmaxy, [dotSize]);
 		}
 		for(var i=ya;i<=yb;i+=2){
-			var py = i*bh, px1 = x1*bw, px2 = x2*bw;
+			var py = i*bh, pminx = minx*bw, pmaxx = maxx*bw;
 			g.vid = "bdx_"+i;
-			g.strokeDashedLine(px1, py, px2, py, [dotSize]);
+			g.strokeDashedLine(pminx, py, pmaxx, py, [dotSize]);
 		}
 	},
 
