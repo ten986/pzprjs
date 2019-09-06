@@ -1,1 +1,1 @@
-puzz.linkの
+puzz.linkのfork
