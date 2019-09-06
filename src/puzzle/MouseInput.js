@@ -250,7 +250,7 @@ MouseEvent:{
 			case 'bar':  this.inputTateyoko(); break;
 			case 'info-line': if(this.mousestart){ this.dispInfoLine();} break;
 			case 'info-blk':  if(this.mousestart){ this.dispInfoBlk();} break;
-			case 'info-ublk': if(this.mousestart){ this.dispInfoUblk();} break;
+			case 'info-ublk': if (this.mousestart) { this.dispInfoUblk(); } break;
 			default:    this.mouseinput_other(); break;	/* 各パズルのルーチンへ */
 		}
 	},

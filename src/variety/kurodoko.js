@@ -24,7 +24,40 @@ MouseEvent:{
 	RBShadeCell : true
 },
 "MouseEvent@nurimisaki":{
-	inputModes : {edit:['number','clear','info-ublk'],play:['shade','unshade','info-ublk']}
+	inputModes: { edit: ['number', 'misaki-circle', 'clear', 'info-ublk'], play: ['shade', 'unshade', 'info-ublk'] },
+	mouseinput_other : function(){
+		if(this.inputMode==='misaki-circle'){ this.inputMisaki();}
+	},
+	inputMisaki: function () {
+		var cell = this.getcell();
+		var num = 2;
+			if(cell.isnull || cell===this.mouseCell){ return;}
+	
+		if (cell !== this.cursor.getc()) {
+			this.setcursor(cell);
+		} else {
+			var val = cell.qnum2;
+			if (this.inputData === null || 1 === 1) { this.inputData = (val === num ? -1 : num); }
+			if (val !== num || this.inputData === -1) {
+				cell.setQnum2(this.inputData);
+				cell.draw();
+			}
+		}
+		this.mouseCell = cell;
+		// var cell = this.getcell();
+		// if(cell.isnull || cell===this.mouseCell){ return;}
+
+		// if(this.cursor.modesnum && this.puzzle.playmode && !this.cursor.checksnum(this.inputPoint) && cell.noNum()){
+		// 	this.setcursorsnum(cell);
+		// }
+		// else if(cell!==this.cursor.getc()){
+		// 	this.setcursor(cell);
+		// }
+		// else{
+		// 	this.inputqnum_main(cell);
+		// }
+		// this.mouseCell = cell;
+	}
 },
 
 //---------------------------------------------------------
@@ -44,7 +77,7 @@ Cell:{
 	minnum : 2
 },
 "Cell@nurimisaki":{
-	qansUnshade : true
+	qansUnshade: true
 },
 Board:{
 	cols : 9,
@@ -73,7 +106,9 @@ Graphic:{
 		this.drawShadedCells();
 		this.drawGrid();
 
-		this.drawCircledNumbers();
+		// this.drawCircledNumbers();
+		this.drawCircles();
+		this.drawQuesNumbers();
 		if(this.pid==='nurimisaki'){ this.drawDotCells();}
 
 		this.drawChassis();
@@ -121,6 +156,38 @@ Graphic:{
 			}
 			else{ g.vhide();}
 		}
+	},
+	getCircleStrokeColor : function(cell){
+		// if(cell.qnum2===2 || cell.anum===2){
+		// 	if(cell.error===1){ return this.errcolor1;}
+		// 	else if(cell.qnum===2){ return this.quescolor;}
+		// 	else if(cell.trial){ return this.trialcolor;}
+		// 	else if(this.puzzle.editmode && !this.puzzle.execConfig('dispqnumbg')){ return "silver";}
+		// 	else{ return this.quescolor;}
+		// }
+		// else if(cell.qnum2===1 && this.puzzle.execConfig('dispqnumbg') && cell.error===0){
+		// 	return 'white';
+		// }
+		if (cell.qnum2 === 2) {
+			return 'black';
+		}
+		return null;
+	},
+	getCircleFillColor : function(cell){
+		// if(cell.qnum2===2 || cell.anum===2){
+		// 	if(cell.error===1){ return this.errcolor1;}
+		// 	else if(cell.qnum===2){ return this.quescolor;}
+		// 	else if(cell.trial){ return this.trialcolor;}
+		// 	else if(this.puzzle.editmode && !this.puzzle.execConfig('dispqnumbg')){ return "silver";}
+		// 	else{ return this.quescolor;}
+		// }
+		// else if(cell.qnum2===1 && this.puzzle.execConfig('dispqnumbg') && cell.error===0){
+		// 	return 'white';
+		// }
+		if (cell.qnum2 === 2) {
+			return 'white';
+		}
+		return null;
 	}
 },
 
@@ -229,12 +296,12 @@ AnsCheck:{
 
 	checkCirclePromontory : function(){
 		var self = this;
-		this.checkAllCell(function(cell){ return (cell.isNum() && !self.isPromontory(cell));}, "circleNotPromontory");
+		this.checkAllCell(function(cell){ return (cell.qnum2===2 && !self.isPromontory(cell));}, "circleNotPromontory");
 	},
 
 	checkNonCircleNotPromontory : function(){
 		var self = this;
-		this.checkAllCell(function(cell){ return (cell.noNum() && cell.isUnshade() && self.isPromontory(cell));}, "nonCirclePromontory");
+		this.checkAllCell(function(cell){ return (cell.qnum2!==2 && cell.isUnshade() && self.isPromontory(cell));}, "nonCirclePromontory");
 	},
 
 	isPromontory : function(cell){

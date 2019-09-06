@@ -147,8 +147,6 @@ Graphic:{
 	bgcellcolor_func : "light",
 
 	lightcolor : "rgb(192, 255, 127)",
-	
-	irowake : true,
 
 	paint : function(){
 		this.drawBGCells();
@@ -167,8 +165,7 @@ Graphic:{
 	getBGCellColor : function(cell){
 		if(cell.qnum===-1){
 			if     (cell.error ===1){ return this.errbcolor1;}
-			// else if(cell.qlight===1 && this.puzzle.execConfig('autocmp')){ return this.lightcolor;}
-			else if(cell.qlight===1 && this.puzzle.execConfig('autocmp')){ return this.getNewLineColor();}
+			else if(cell.qlight===1 && this.puzzle.execConfig('autocmp')){ return this.lightcolor;}
 		}
 		return null;
 	},
@@ -177,7 +174,6 @@ Graphic:{
 
 		var rsize = this.cw*0.40;
 		var lampcolor = "rgb(0, 127, 96)";
-		// var lampcolor = function () { return this.getNewLineColor(); };
 		var clist = this.range.cells;
 		for(var i=0;i<clist.length;i++){
 			var cell = clist[i];
