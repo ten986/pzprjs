@@ -12,9 +12,11 @@
 * amibo, juosan, mashu, starbattle: Reword English error messages
 * cbblock: Add error for dead-end walls
 * heyawake: Don't autocheck until the grid is fully decided
+* nanro: Don't drag number, drag "there's a number"
 * slither: Allow 4 as clue number
 * starbattle: Input dots in auto-mode; change style of empty cells;
   hide redundant dots
+* yajilin: Allow crossmark-input in auto-mode on right click.
 * Change default value of "shade undefined cells" back to `true`
 * Change unshaded cells without changing shaded cells in checkerboard
   puzzles with right mouse button (Hitori, Heyawake, Yajilin, etc.)
